@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Base 64</title>
+  </head>
+  <body>
+    <h1>Base 64</h1>
+    <div id="to">To Base 64</div>
+    <div id="from">From Base 64</div>
+    <canvas id="cnv"></canvas>
+    <img id="outputImg" src="" style="display:none;">
+    <input accept=".jpg, .jpeg, .png, .bmp, .svg, .gif" id="file" name="myFile" type="file"/>
+    <a id="download" style="display:none;">Download</a>
+    <input type="button" value="copy" id="copy">
+    <input type="button" value="convert" id="convert" style="display:none;">
+    <input type="button" value="clear" id="clear" style="display:none;">
+    <select id="fileTypeSelector" style="display:none;">
+    	<option>media type</option>
+    	<option value="image/png">png</option>
+    	<option value="image/jpeg">jpeg</option>
+    	<option value="image/svg+xml">svg</option>
+    	<option value="image/bmp">bmp</option>
+    	<option value="image/gif">gif</option>
+    </select>
+    <textarea id="output"></textarea>
+    <script src="popup.js"></script>
+  </body>
+</html>

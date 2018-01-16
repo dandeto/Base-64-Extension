@@ -2,11 +2,14 @@
 <html>
   <head>
     <title>Base 64</title>
+    <link rel="stylesheet" type="text/css" href="popup.css">
   </head>
   <body>
     <h1>Base 64</h1>
-    <div id="to">To Base 64</div>
-    <div id="from">From Base 64</div>
+    <div class="settings">
+        <div class="btn" id="to">To Base 64</div>
+        <div class="btn" id="from">From Base 64</div>
+    </div>
     <canvas id="cnv"></canvas>
     <img id="outputImg" src="" style="display:none;">
     <input accept=".jpg, .jpeg, .png, .bmp, .svg, .gif" id="file" name="myFile" type="file"/>

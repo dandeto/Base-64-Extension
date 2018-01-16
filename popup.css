@@ -8,11 +8,16 @@ body{
 }
 
 #to {
-  background-color: blue;
-  margin-left: 25%;
-  float:left;
+  margin-left: 20%;
+  float: left;
 }
 
 #from {
-  margin-left: 75%;
+  margin-left: 60%;
+  margin-right: 20%;
+}
+
+.btn {
+  padding: 1%;
+  cursor: pointer;
 }

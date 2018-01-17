@@ -19,5 +19,6 @@ body{
 
 .btn {
   padding: 1%;
+  background-color: red;
   cursor: pointer;
 }

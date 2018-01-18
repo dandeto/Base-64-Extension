@@ -10,18 +10,18 @@ h1 {
 }
 
 @font-face {
-    font-family: Bitter;
-    src: url(Bitter-Regular.ttf);
+  font-family: Bitter;
+  src: url(fonts/Bitter-Regular.ttf);
 }
 
 @font-face {
-    font-family: Roboto;
-    src: url(RobotoCondensed-Regular.ttf);
+  font-family: Roboto;
+  src: url(fonts/RobotoCondensed-Regular.ttf);
 }
 
 @font-face {
-    font-family: Fixedsys;
-    src: url(fixedsys.ttf);
+  font-family: Fixedsys;
+  src: url(fonts/fixedsys.ttf);
 }
 
 .settings {

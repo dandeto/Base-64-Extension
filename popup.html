@@ -11,12 +11,12 @@
         <div class="btn" id="to">To Base 64</div>
         <div class="btn" id="from">From Base 64</div>
     </div>
-    <div class="cnvContainer">
-        <canvas id="cnv"></canvas>
+    <div id="cnvContainer" class="cnvContainer">
+        <canvas id="cnv" width="0" height="0"></canvas>
     </div>
     <br />
-    <input style="display:none;" accept=".jpg, .jpeg, .png, .bmp, .svg, .gif" id="file" type="file"/>
-    <label class="file" for="file">Select a File</label><span id="fileName">filename</span>
+    <input style="display:none;" accept=".jpg, .jpeg, .png, .bmp, .svg, .gif, .mp3" id="file" type="file"/>
+    <label id="label" class="file" for="file">Select a File</label><span id="fileName">filename</span>
     <a class="btn" id="download" style="display:none;">Download</a>
     <input class="btn" type="button" value="Copy" id="copy">
     <input class="btn" type="button" value="Convert" id="convert" style="display:none;">
@@ -28,6 +28,7 @@
     	<option value="image/svg+xml">svg</option>
     	<option value="image/bmp">bmp</option>
     	<option value="image/gif">gif</option>
+        <option value="audio/mpeg">mpeg</option>
     </select>
     <div class="cnvContainer">
         <textarea id="output" rows="10"></textarea>

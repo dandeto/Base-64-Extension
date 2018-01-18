@@ -1,18 +1,96 @@
 body{
-  background-color: #606060;
+  background-color: #353535;
+  width: 700px;
+}
+
+h1 {
+  text-align: center;
+  font-family: Bitter;
+  color: #a9ff00;
+}
+
+@font-face {
+  font-family: Bitter;
+  src: url(fonts/Bitter-Regular.ttf);
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url(fonts/RobotoCondensed-Regular.ttf);
+}
+
+@font-face {
+  font-family: Fixedsys;
+  src: url(fonts/fixedsys.ttf);
 }
 
 .settings {
-  background-color: red;
-  padding:1%;
+  background-color: black;
+  padding: 1%;
 }
 
 #to {
-  background-color: blue;
-  margin-left: 25%;
-  float:left;
+  margin-left: 20%;
+  float: left;
 }
 
 #from {
-  margin-left: 75%;
+  margin-left: 65%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.btn {
+  color: #a9ff00;
+  font-family: Roboto;
+  font-size: 100%;
+  text-align: center;
+  width: 16%;
+  border: 2px inset #cccccc;
+  border-radius: 10px;
+  padding: 1%;
+  background-color: #303030;
+  cursor: pointer;
+}
+
+.cnvContainer {
+  text-align: center;
+}
+
+.file {
+  display: inline-block;
+  width: 16%;
+  text-align: center;
+  color: #a9ff00;
+  font-family: Bitter;
+  border: 2px solid #cccccc;
+  background-color: #303030;
+  padding: 1%;
+  cursor: pointer;
+}
+
+#fileName {
+  display: inline-block;
+  text-align: center;
+  width: 10%;
+  font-family: Bitter;
+  color: #a9ff00;
+  border: 2px solid #cccccc;
+  background-color: #404040;
+  padding: 1%;
+  cursor: text;
+}
+
+textarea {
+  margin-top: 2%;
+  width: 25%;
+  padding: .25%;
+  font-family: fixedsys;
+  font-size: 100%;
+  background-color: black;
+  border-color: #cccccc;
+  color: #a9ff00;
 }

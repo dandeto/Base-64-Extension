@@ -5,7 +5,6 @@ var from64 = document.getElementById("from");
 var tobtn = document.getElementById("convert");
 var input = document.getElementById("file");
 var canvas = document.getElementById("cnv");
-var outputImg = document.getElementById("outputImg");
 var download = document.getElementById("download");
 var clear = document.getElementById("clear");
 var selector = document.getElementById("fileTypeSelector");
@@ -19,16 +18,14 @@ to.addEventListener('click', function(event) {
   copybtn.style.display = "inline";
   download.style.display = "none";
   clear.style.display = "none";
-  input.style.display = "inline";
   selector.style.display = "none";
 });
 from64.addEventListener('click', function(event) {
   setting = 1;
   tobtn.style.display = "inline";
   copybtn.style.display = "none";
-  download.style.display = "inline";
+  download.style.display = "inline-block";
   clear.style.display = "inline";
-  input.style.display = "none";
   selector.style.display = "inline";
 });
 clear.addEventListener('click', function(event) {
@@ -44,17 +41,18 @@ tobtn.addEventListener("click", createImage);
 
 function detect() {
   type = input.files[0].type;
+  document.getElementById("fileName").innerHTML = input.files[0].name;
   convert();
 }
 
 function convert() {
   if (setting == 0) {
-      input = document.getElementById("file");
-      file = input.files[0];
-      fr = new FileReader();
-      fr.onload = createImage;   // onload fires after reading is complete
-      fr.readAsDataURL(file);
-    }
+    input = document.getElementById("file");
+    file = input.files[0];
+    fr = new FileReader();
+    fr.onload = createImage;   // onload fires after reading is complete
+    fr.readAsDataURL(file);
+  }
 }
 
 function createImage() {

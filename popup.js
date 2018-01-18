@@ -14,7 +14,7 @@ var state, string;
 var img, aud, fr, file, type, b64Type, created, fileType;
 var setting = 0;
 var ctx = canvas.getContext("2d");
-var containsAudio;
+var containsAudio, containsVideo;
 var containsImage;
 
 to.addEventListener('click', function(event) {
@@ -68,8 +68,12 @@ function convert() {
     file = input.files[0];
     fr = new FileReader();
     containsAudio = file.type.indexOf("audio");
+    containsVideo = file.type.indexOf("video");
     containsImage = file.type.indexOf("image");
+    alert(file.type);
     if (containsAudio == 0) { //if audio
+      fr.onload = createAudio;
+    } else if (containsVideo == 0) { //if audio
       fr.onload = createAudio;
     }
     else if (containsImage == 0) { // if image

@@ -35,7 +35,7 @@ h1 {
 }
 
 #from {
-  margin-left: 65%;
+  margin-left: 60%;
 }
 
 a {
@@ -48,7 +48,7 @@ a {
   font-family: Roboto;
   font-size: 100%;
   text-align: center;
-  width: 16%;
+  width: 23%;
   border: 2px inset #cccccc;
   border-radius: 10px;
   padding: 1%;
@@ -62,7 +62,7 @@ a {
 
 .file {
   display: inline-block;
-  width: 16%;
+  width: 23%;
   text-align: center;
   color: #a9ff00;
   font-family: Bitter;
@@ -75,12 +75,13 @@ a {
 #fileName {
   display: inline-block;
   text-align: center;
-  width: 10%;
+  width: 23%;
   font-family: Bitter;
   color: #a9ff00;
   border: 2px solid #cccccc;
   background-color: #404040;
   padding: 1%;
+  margin-right: 10%;
   cursor: text;
 }
 

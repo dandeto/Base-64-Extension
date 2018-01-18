@@ -14,8 +14,7 @@ var state, string;
 var img, aud, fr, file, type, b64Type, created, fileType;
 var setting = 0;
 var ctx = canvas.getContext("2d");
-var containsAudio, containsVideo;
-var containsImage;
+var containsAudio, containsVideo, containsImage;
 
 to.addEventListener('click', function(event) {
   setting = 0;
@@ -70,14 +69,16 @@ function convert() {
     containsAudio = file.type.indexOf("audio");
     containsVideo = file.type.indexOf("video");
     containsImage = file.type.indexOf("image");
-    alert(file.type);
     if (containsAudio == 0) { //if audio
       fr.onload = createAudio;
+      fileType = "audio";
     } else if (containsVideo == 0) { //if audio
       fr.onload = createAudio;
+      fileType = "audio";
     }
     else if (containsImage == 0) { // if image
       fr.onload = createImage;   // onload fires after reading is complete
+      fileType = "image";
     }
     else{
       alert("file not supported");
@@ -164,7 +165,6 @@ function imageLoaded() {
 }
 
 function downloadCanvas(link) {
-  alert("download");
   if (fileType == "image") {link.href = img.src;}
   if (fileType == "audio") {link.href = aud.src;}
     var ext;

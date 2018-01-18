@@ -164,6 +164,7 @@ function imageLoaded() {
 }
 
 function downloadCanvas(link) {
+  alert("download");
   if (fileType == "image") {link.href = img.src;}
   if (fileType == "audio") {link.href = aud.src;}
     var ext;
@@ -173,5 +174,6 @@ function downloadCanvas(link) {
     if (b64Type == "image/svg+xml") { ext = "svg"}
     if (b64Type == "image/gif") { ext = "gif"}
     if (b64Type == "audio/mpeg") { ext = "mp3"}
+    if (b64Type == "video/ogg") { ext = "ogg"}
     link.download = "converted_file." + ext;
 }

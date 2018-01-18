@@ -14,7 +14,6 @@ var state, string;
 var img, aud, fr, file, type, b64Type, created, fileType;
 var setting = 0;
 var ctx = canvas.getContext("2d");
-var containsAudio, containsVideo, containsImage;
 
 to.addEventListener('click', function(event) {
   setting = 0;
@@ -37,6 +36,7 @@ from64.addEventListener('click', function(event) {
   label.style.display = "none";
   fileName.style.display = "none";
 });
+
 clear.addEventListener('click', function(event) {
   out.value = null;
 });
@@ -47,28 +47,22 @@ copybtn.addEventListener('click', function(event) {
   out.select();
   document.execCommand('copy');
 });
-
 download.addEventListener('click', function() {
     downloadCanvas(this);
 }, false);
 
-input.addEventListener("change", detect);
+input.addEventListener("change", convert);
 tobtn.addEventListener("click", find);
 
-function detect() {
-  type = input.files[0].type;
-  document.getElementById("fileName").innerHTML = input.files[0].name;
-  convert();
-}
-
 function convert() {
+  document.getElementById("fileName").innerHTML = input.files[0].name;
   if (setting == 0) {
     input = document.getElementById("file");
     file = input.files[0];
     fr = new FileReader();
-    containsAudio = file.type.indexOf("audio");
-    containsVideo = file.type.indexOf("video");
-    containsImage = file.type.indexOf("image");
+    var containsAudio = file.type.indexOf("audio");
+    var containsVideo = file.type.indexOf("video");
+    var containsImage = file.type.indexOf("image");
     if (containsAudio == 0) { //if audio
       fr.onload = createAudio;
       fileType = "audio";

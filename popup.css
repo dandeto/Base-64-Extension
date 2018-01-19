@@ -67,6 +67,10 @@ a {
   cursor: pointer;
 }
 
+.btn:focus{
+    outline: none;
+}
+
 .cnvContainer {
   text-align: center;
 }
@@ -102,4 +106,8 @@ textarea {
   background-color: black;
   border-color: #cccccc;
   color: #a9ff00;
+}
+
+textarea:focus{
+    outline: none;
 }

@@ -18,18 +18,18 @@ uploading your local files to a server.
 ### Supported File Types
 This extension supports converting the following file types:
 
--Images
-  -png
-  -jpeg
-  -gif
-  -bmp
-  -tiff cannot be displayed
-  -ico
-  -svg
+- Images
+	- png
+	- jpeg
+	- gif
+	- bmp
+	- tiff (can't be displayed)
+	- ico
+	- svg
 
--Audio
-  -mpeg mp3
-  -ogg
+- Audio
+	- mpeg mp3
+	- ogg
 
 ### Download
 This extension is updated and availible on the [Chrome Store](#).

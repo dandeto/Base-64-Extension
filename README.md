@@ -28,7 +28,7 @@ This extension supports converting the following file types:
 	- svg
 
 - Audio
-	- mpeg mp3
+	- mpeg (mp3)
 	- ogg
 
 ### Download

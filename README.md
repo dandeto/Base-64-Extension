@@ -22,6 +22,8 @@ This extension supports converting the following file types:
 	-jpeg
 	-gif
 	-bmp
+	-tiff (cannot be displayed)
+	-ico
 	-svg
 -Audio
 	-mpeg (mp3)
@@ -43,5 +45,5 @@ If you downloaded the source and want to run it as an extension, you need to do 
 6. You will see it in the top right corner of your brower window
 ```
 
-### Found a Bug?
-Please report it in the [issues](https://github.com/dandeto/Base-64-Extension/issues) section and tag it as a bug.
+### Found a Bug? Is there a file type I missed?
+Please report it in the [issues](https://github.com/dandeto/Base-64-Extension/issues) section and give it a relevant tag.

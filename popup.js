@@ -109,6 +109,7 @@ function createImage() {
   img.onload = imageLoaded; //create canvas and put img on it
   if (setting == 0) {
     img.src = fr.result;
+    out.value = fr.result;
   }
   if (setting == 1) {
     if (b64Type == undefined || b64Type == "media type") {
@@ -120,6 +121,12 @@ function createImage() {
       img.src = out.value;
     }
   }
+}
+
+function imageLoaded() {
+  canvas.width = img.width;
+  canvas.height = img.height;
+  ctx.drawImage(img,0,0);
 }
 
 function createAudio() {
@@ -152,15 +159,6 @@ function createAudio() {
   created = true;
 }
 
-function imageLoaded() {
-  canvas.width = img.width;
-  canvas.height = img.height;
-  ctx.drawImage(img,0,0);
-  if (setting == 0) {
-    out.value = img.src;
-  }
-}
-
 function downloadCanvas(link) {
   if (fileType == "image") {link.href = img.src;}
   if (fileType == "audio") {link.href = aud.src;}
@@ -170,6 +168,8 @@ function downloadCanvas(link) {
     if (b64Type == "image/bmp") { ext = "bmp"}
     if (b64Type == "image/svg+xml") { ext = "svg"}
     if (b64Type == "image/gif") { ext = "gif"}
+    if (b64Type == "image/gif") { ext = "tiff"}
+    if (b64Type == "image/x-icon") { ext = "ico"}
     if (b64Type == "audio/mpeg") { ext = "mp3"}
     if (b64Type == "video/ogg") { ext = "ogg"}
     if (ext !== undefined) {

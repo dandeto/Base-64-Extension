@@ -17,16 +17,18 @@ uploading your local files to a server.
 
 ### Supported File Types
 This extension supports converting the following file types:
+
 -Images
   -png
   -jpeg
   -gif
   -bmp
-  -tiff (cannot be displayed)
+  -tiff cannot be displayed
   -ico
   -svg
+
 -Audio
-  -mpeg (mp3)
+  -mpeg mp3
   -ogg
 
 ### Download

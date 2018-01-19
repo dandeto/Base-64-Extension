@@ -134,9 +134,12 @@ function createAudio() {
     out.value = aud.src;
   }
   if (setting == 1) {
+    var contains = out.value.indexOf("data:audio/mp3;base64,"); //Chrome says mp3 instead of mpeg like FF but FF accepts both
     if (b64Type == undefined || b64Type == "media type") {
       alert("Select a media type.");
-    } else if (state == -1) {
+    } else if (state == -1 && contains == 0) {
+      aud.setAttribute("src",out.value);
+    } else if (state == -1 && contains == -1) {
       out.value = string + out.value;
       aud.setAttribute("src",out.value);
     } else {

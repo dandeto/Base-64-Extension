@@ -75,7 +75,7 @@ function convert() {
       fileType = "image";
     }
     else{
-      alert("file not supported");
+      alert("File not supported.");
     }
     fr.readAsDataURL(file);
   }
@@ -169,5 +169,9 @@ function downloadCanvas(link) {
     if (b64Type == "image/gif") { ext = "gif"}
     if (b64Type == "audio/mpeg") { ext = "mp3"}
     if (b64Type == "video/ogg") { ext = "ogg"}
-    link.download = "converted_file." + ext;
+    if (ext !== undefined) {
+      link.download = "converted_file." + ext;
+    } else {
+      alert("Select a media type.");
+    }
 }

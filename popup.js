@@ -104,7 +104,16 @@ function clearCanvas() {
   canvas.height = 0;
 }
 
+function clearAudio() {
+  if (created) {
+    var el = document.getElementsByTagName("audio")[0];
+    document.getElementById("cnvContainer").removeChild(el);
+  }
+  created = false;
+}
+
 function createImage() {
+  clearAudio();
   img = new Image();
   img.onload = imageLoaded; //create canvas and put img on it
   if (setting == 0) {
@@ -131,11 +140,8 @@ function imageLoaded() {
 
 function createAudio() {
   clearCanvas();
+  clearAudio();
   aud = document.createElement("audio");
-  if (created) {
-    var el = document.getElementsByTagName("audio")[0];
-    document.getElementById("cnvContainer").removeChild(el);
-  }
   if (setting == 0) {
     aud.setAttribute("src",fr.result); //make uploaded file the audio
     out.value = aud.src;

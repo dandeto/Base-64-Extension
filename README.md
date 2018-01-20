@@ -32,7 +32,7 @@ This extension supports converting the following file types:
 	- ogg
 
 ### Download
-This extension is updated and availible on the [Chrome Store](#).
+This extension is updated and availible on the [Chrome Store](https://chrome.google.com/webstore/detail/base64-encoderdecoder/afdannbjainhcddbjjlhamdgnojibeoi).
 Alternatively you can download the latest source code [release](https://github.com/dandeto/Base-64-Extension/releases).
 That said, Chrome will prompt you to disable it every time you open the browser, so I highly advise downloading it from the store.
 

@@ -4,7 +4,6 @@ body{
 }
 
 h1 {
-  text-align: center;
   font-family: Bitter;
   color: #a9ff00;
 }
@@ -30,17 +29,16 @@ h1 {
 }
 
 #to {
-  margin-left: 20%;
+  margin-left: 17%;
   float: left;
 }
 
 #from {
-  margin-left: 60%;
+  margin-left: 57%;
 }
 
 a {
   text-decoration: none;
-  color: black;
 }
 
 .btn {
@@ -73,6 +71,42 @@ a {
 
 .cnvContainer {
   text-align: center;
+}
+
+.donate {
+  float: right;
+  margin-right: 1%;
+  padding: 1%;
+  color: white;
+  font-size: 60%;
+  background-color: #303030;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.donate:hover {
+  font-size: 60%;
+  background-color: #00a9ff;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.donate, a:visited {
+  color: white;
+}
+
+.git {
+  float: left; 
+  fill: white;
+}
+
+.git:hover {
+  fill: #00a9ff;
+}
+
+.title {
+  display: inline;
+  margin-left: 37%;
 }
 
 #label {

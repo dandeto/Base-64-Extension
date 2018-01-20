@@ -1,8 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Base 64",
-  "description": "This extension will convert base 64",
+  "name": "Base64 Encoder/Decoder",
+  "short_name": "Base64",
+  "description": "Encodes and decodes media to and from Base64.",
   "version": "1.0",
 
   "icons": { "16": "icon16.png",

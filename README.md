@@ -36,6 +36,9 @@ This extension is updated and availible on the [Chrome Store](https://chrome.goo
 Alternatively you can download the latest source code [release](https://github.com/dandeto/Base-64-Extension/releases).
 That said, Chrome will prompt you to disable it every time you open the browser, so I highly advise downloading it from the store.
 
+Availible on [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/base64-encoder-decoder/). I suggest you use Chrome instead for now
+because Firefox has a bug that prematurely closes the popup window [bugzilla](https://bugzilla.mozilla.org/show_bug.cgi?id=1292701).
+
 ### Installation
 If you downloaded the source and want to run it as an extension, you need to do the following:
 ```

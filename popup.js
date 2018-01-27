@@ -55,26 +55,27 @@ input.addEventListener("change", convert);
 tobtn.addEventListener("click", find);
 
 function convert() {
-  document.getElementById("fileName").innerHTML = input.files[0].name;
+  document.getElementById("fileName").textContent = input.files[0].name;
   if (setting == 0) {
-    input = document.getElementById("file");
     file = input.files[0];
     fr = new FileReader();
     var containsAudio = file.type.indexOf("audio");
     var containsVideo = file.type.indexOf("video");
     var containsImage = file.type.indexOf("image");
+    var containsText = file.type.indexOf("text");
     if (containsAudio == 0) { //if audio
       fr.onload = createAudio;
       fileType = "audio";
     } else if (containsVideo == 0) { //if audio
       fr.onload = createAudio;
       fileType = "audio";
-    }
-    else if (containsImage == 0) { // if image
+    } else if (containsImage == 0) { // if image
       fr.onload = createImage;   // onload fires after reading is complete
       fileType = "image";
-    }
-    else{
+    } else if (containsText == 0) { // if image
+      fr.onload = createText;   // onload fires after reading is complete
+      fileType = "text";
+    } else {
       alert("File not supported.");
     }
     fr.readAsDataURL(file);
@@ -88,32 +89,38 @@ function find() {
   string = "data:" + b64Type + ";base64,";
   state = out.value.indexOf(string);
   var contains = b64Type.indexOf("image");
+  var containsTxt = b64Type.indexOf("text");
   if (contains == 0) {
     createImage();
     fileType = "image";
   }
-  if (contains == -1) {
+  if (containsTxt == 0) {
+    createText();
+    fileType = "text";
+  }
+  if (contains == -1 && containsTxt == -1) {
     createAudio();
     fileType = "audio";
   }
 }
 
-function clearCanvas() {
-  ctx.clearRect(0,0,canvas.width,canvas.height); //clean up canvas
-  canvas.width = 0;
-  canvas.height = 0;
-}
-
-function clearAudio() {
-  if (created) {
-    var el = document.getElementsByTagName("audio")[0];
-    document.getElementById("cnvContainer").removeChild(el);
-  }
-  created = false;
+function clearDisplay() {
+	if (created == "audio") {
+    	var el = document.getElementsByTagName("audio")[0];
+    	document.getElementById("cnvContainer").removeChild(el);
+  	} else if (created == "text") {
+    	var el = document.getElementsByTagName("textarea")[0];
+    	document.getElementById("cnvContainer").removeChild(el);
+  	} else {
+  		ctx.clearRect(0,0,canvas.width,canvas.height); //clean up canvas
+  		canvas.width = 0;
+  		canvas.height = 0;
+  	}
+    created = "";
 }
 
 function createImage() {
-  clearAudio();
+  clearDisplay();
   img = new Image();
   img.onload = imageLoaded; //create canvas and put img on it
   if (setting == 0) {
@@ -139,8 +146,7 @@ function imageLoaded() {
 }
 
 function createAudio() {
-  clearCanvas();
-  clearAudio();
+  clearDisplay();
   aud = document.createElement("audio");
   if (setting == 0) {
     aud.setAttribute("src",fr.result); //make uploaded file the audio
@@ -162,12 +168,30 @@ function createAudio() {
 
   aud.setAttribute("controls", "controls");
   document.getElementById("cnvContainer").appendChild(aud);
-  created = true;
+  created = "audio";
+}
+
+function createText() {
+	clearDisplay();
+	var txt = document.createElement("textarea");
+	function detect() {
+		var contains = out.value.indexOf("data:text/plain;base64,");
+  		if (contains == -1) {
+  			txt.value = window.atob(out.value);
+  		} else if (contains == 0) {
+  			var str = out.value.split(",").pop();
+  			txt.value = window.atob(str);
+  		}
+	}
+	if (setting == 0) {
+    	out.value = fr.result;
+  	}
+  	detect();
+  	document.getElementById("cnvContainer").appendChild(txt);
+  	created = "text";
 }
 
 function downloadCanvas(link) {
-  if (fileType == "image") {link.href = img.src;}
-  if (fileType == "audio") {link.href = aud.src;}
     var ext;
     if (b64Type == "image/png") { ext = "png"}
     if (b64Type == "image/jpeg") { ext = "jpg"}
@@ -178,8 +202,10 @@ function downloadCanvas(link) {
     if (b64Type == "image/x-icon") { ext = "ico"}
     if (b64Type == "audio/mpeg") { ext = "mp3"}
     if (b64Type == "video/ogg") { ext = "ogg"}
+    if (b64Type == "text/plain") { ext = "txt"}
     if (ext !== undefined) {
       link.download = "converted_file." + ext;
+      link.href = out.value;
     } else {
       alert("Select a media type.");
     }

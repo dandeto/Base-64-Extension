@@ -4,7 +4,7 @@
   "name": "Base64 Encoder/Decoder",
   "short_name": "Base64",
   "description": "Encodes and decodes media to and from Base64.",
-  "version": "1.0.2",
+  "version": "1.0.3",
 
   "icons": { "16": "icon16.png",
            "48": "icon48.png",

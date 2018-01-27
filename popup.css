@@ -96,7 +96,7 @@ a {
 }
 
 .git {
-  float: left; 
+  float: left;
   fill: white;
 }
 
@@ -129,6 +129,11 @@ a {
   padding: 1%;
   margin-right: 10%;
   cursor: text;
+}
+
+canvas {
+  max-width: 75%;
+  max-height: 75%;
 }
 
 textarea {

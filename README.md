@@ -31,6 +31,9 @@ This extension supports converting the following file types:
 	- mpeg (mp3)
 	- ogg
 
+- Text
+	- txt
+
 ### Download
 This extension is updated and availible on the [Chrome Store](https://chrome.google.com/webstore/detail/base64-encoderdecoder/afdannbjainhcddbjjlhamdgnojibeoi).
 Alternatively you can download the latest source code [release](https://github.com/dandeto/Base-64-Extension/releases).

@@ -82,13 +82,12 @@ a {
   background-color: #303030;
   border-bottom-right-radius: 10px;
   border-top-left-radius: 10px;
+  -webkit-transition: background-color 1s;
+  transition: background-color 1s;
 }
 
 .donate:hover {
-  font-size: 60%;
   background-color: #00a9ff;
-  border-bottom-right-radius: 10px;
-  border-top-left-radius: 10px;
 }
 
 .donate, a:visited {
@@ -98,6 +97,8 @@ a {
 .git {
   float: left;
   fill: white;
+  -webkit-transition: fill 1s;
+  transition: fill 1s;
 }
 
 .git:hover {

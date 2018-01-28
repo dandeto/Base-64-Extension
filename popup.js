@@ -175,7 +175,7 @@ function createText() {
 	clearDisplay();
 	var txt = document.createElement("textarea");
 	function detect() {
-		var contains = out.value.indexOf("data:text/plain;base64,");
+		var contains = out.value.indexOf("data:text");
   		if (contains == -1) {
   			txt.value = window.atob(out.value);
   		} else if (contains == 0) {

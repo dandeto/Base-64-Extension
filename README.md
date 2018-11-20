@@ -33,6 +33,7 @@ This extension supports converting the following file types:
 
 - Text
 	- txt
+	- css
 
 ### Download
 This extension is updated and availible on the [Chrome Store](https://chrome.google.com/webstore/detail/base64-encoderdecoder/afdannbjainhcddbjjlhamdgnojibeoi).

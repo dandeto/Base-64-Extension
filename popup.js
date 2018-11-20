@@ -10,8 +10,8 @@ var clear = document.getElementById("clear");
 var selector = document.getElementById("fileTypeSelector");
 var label = document.getElementById("label");
 var fileName = document.getElementById("fileName");
-var state, string;
-var img, aud, fr, file, type, b64Type, created, fileType;
+var state, string,
+img, aud, fr, file, type, b64Type, created, fileType;
 var setting = 0;
 var ctx = canvas.getContext("2d");
 
@@ -66,14 +66,14 @@ function convert() {
     if (containsAudio == 0) { //if audio
       fr.onload = createAudio;
       fileType = "audio";
-    } else if (containsVideo == 0) { //if audio
+    } else if (containsVideo == 0) { //if video
       fr.onload = createAudio;
       fileType = "audio";
     } else if (containsImage == 0) { // if image
-      fr.onload = createImage;   // onload fires after reading is complete
+      fr.onload = createImage;
       fileType = "image";
-    } else if (containsText == 0) { // if image
-      fr.onload = createText;   // onload fires after reading is complete
+    } else if (containsText == 0) { // if txt
+      fr.onload = createText; // onload fires after reading is complete
       fileType = "text";
     } else {
       alert("File not supported.");
@@ -83,22 +83,16 @@ function convert() {
 }
 
 function find() {
-  if (b64Type == undefined) {
-    alert("Select a media type.");
-  }
-  string = "data:" + b64Type + ";base64,";
-  state = out.value.indexOf(string);
-  var contains = b64Type.indexOf("image");
-  var containsTxt = b64Type.indexOf("text");
-  if (contains == 0) {
-    createImage();
-    fileType = "image";
-  }
-  if (containsTxt == 0) {
+  if (out.value.indexOf("text/") > -1) {//all text
     createText();
     fileType = "text";
   }
-  if (contains == -1 && containsTxt == -1) {
+  if (out.value.indexOf("image/") > -1) { //all image types
+    createImage();
+    fileType = "image";
+  }
+  if (out.value.indexOf("audio/") > -1 ||
+      out.value.indexOf("video/ogg") > -1) { //all audio
     createAudio();
     fileType = "audio";
   }
@@ -126,16 +120,16 @@ function createImage() {
   if (setting == 0) {
     img.src = fr.result;
     out.value = fr.result;
+    store(fr.result);
   }
   if (setting == 1) {
-    if (b64Type == undefined || b64Type == "media type") {
-      alert("Select a media type.");
-    } else if (state == -1) {
+    if (state == -1) {
       out.value = string + out.value;
       img.src = out.value;
     } else {
       img.src = out.value;
     }
+    store(out.value);
   }
 }
 
@@ -151,12 +145,11 @@ function createAudio() {
   if (setting == 0) {
     aud.setAttribute("src",fr.result); //make uploaded file the audio
     out.value = aud.src;
+    store(fr.result);
   }
   if (setting == 1) {
     var contains = out.value.indexOf("data:audio/mp3;base64,"); //Chrome says mp3 instead of mpeg like FF but FF accepts both
-    if (b64Type == undefined || b64Type == "media type") {
-      alert("Select a media type.");
-    } else if (state == -1 && contains == 0) {
+    if (state == -1 && contains == 0) {
       aud.setAttribute("src",out.value);
     } else if (state == -1 && contains == -1) {
       out.value = string + out.value;
@@ -164,6 +157,7 @@ function createAudio() {
     } else {
       aud.setAttribute("src",out.value);
     }
+    store(out.value);
   }
 
   aud.setAttribute("controls", "controls");
@@ -174,39 +168,58 @@ function createAudio() {
 function createText() {
 	clearDisplay();
 	var txt = document.createElement("textarea");
+  txt.setAttribute("rows", "5");
 	function detect() {
 		var contains = out.value.indexOf("data:text");
-  		if (contains == -1) {
-  			txt.value = window.atob(out.value);
-  		} else if (contains == 0) {
-  			var str = out.value.split(",").pop();
-  			txt.value = window.atob(str);
-  		}
+  	if (contains == -1) {
+  		txt.value = window.atob(out.value);
+  	} else if (contains == 0) {
+  		var str = out.value.split(",").pop();
+  		txt.value = window.atob(str);
+    }
+    store(out.value);
 	}
 	if (setting == 0) {
-    	out.value = fr.result;
-  	}
-  	detect();
-  	document.getElementById("cnvContainer").appendChild(txt);
-  	created = "text";
+  	out.value = fr.result;
+    store(fr.result);
+  }
+  detect();
+  document.getElementById("cnvContainer").appendChild(txt);
+  created = "text";
 }
 
 function downloadCanvas(link) {
-    var ext;
-    if (b64Type == "image/png") { ext = "png"}
-    if (b64Type == "image/jpeg") { ext = "jpg"}
-    if (b64Type == "image/bmp") { ext = "bmp"}
-    if (b64Type == "image/svg+xml") { ext = "svg"}
-    if (b64Type == "image/gif") { ext = "gif"}
-    if (b64Type == "image/gif") { ext = "tiff"}
-    if (b64Type == "image/x-icon") { ext = "ico"}
-    if (b64Type == "audio/mpeg") { ext = "mp3"}
-    if (b64Type == "video/ogg") { ext = "ogg"}
-    if (b64Type == "text/plain") { ext = "txt"}
-    if (ext !== undefined) {
-      link.download = "converted_file." + ext;
-      link.href = out.value;
-    } else {
-      alert("Select a media type.");
-    }
+  var ext;
+  if (b64Type == undefined) { //needs to select download format
+    alert("Select a media type.");
+  }
+  if (b64Type == "image/png") { ext = "png"}
+  if (b64Type == "image/jpeg") { ext = "jpg"}
+  if (b64Type == "image/bmp") { ext = "bmp"}
+  if (b64Type == "image/svg+xml") { ext = "svg"}
+  if (b64Type == "image/gif") { ext = "gif"}
+  if (b64Type == "image/gif") { ext = "tiff"}
+  if (b64Type == "image/x-icon") { ext = "ico"}
+  if (b64Type == "audio/mpeg") { ext = "mp3"}
+  if (b64Type == "video/ogg") { ext = "ogg"}
+  if (b64Type == "text/plain") { ext = "txt"}
+  if (b64Type == "text/css") { ext = "css"}
+  if (b64Type == "text/html") { ext = "html"}
+  if (b64Type == "text/javascript") { ext = "js"}
+  if (ext !== undefined) {
+    link.download = "converted_file." + ext;
+    link.href = out.value;
+  }
+}
+
+(function () {
+  chrome.storage.local.get(['key'], function(result) {
+    if (result.key !== undefined)
+      out.value = result.key;
+  });
+
+}());
+
+function store(data) {
+  chrome.storage.local.set({"key": data});
 }

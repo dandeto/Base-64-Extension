@@ -10,6 +10,7 @@ var clear = document.getElementById("clear");
 var selector = document.getElementById("fileTypeSelector");
 var label = document.getElementById("label");
 var fileName = document.getElementById("fileName");
+var file_type = document.getElementById("file_type");
 var state, string,
 img, aud, fr, file, type, b64Type, created, fileType;
 var setting = 0;
@@ -24,6 +25,7 @@ to.addEventListener('click', function(event) {
   selector.style.display = "none";
   label.style.display = "inline-block";
   fileName.style.display = "inline-block";
+  file_type.style.display = "none";
 
 });
 from64.addEventListener('click', function(event) {
@@ -35,6 +37,7 @@ from64.addEventListener('click', function(event) {
   selector.style.display = "inline";
   label.style.display = "none";
   fileName.style.display = "none";
+  file_type.style.display = "inline-block";
 });
 
 clear.addEventListener('click', function(event) {
@@ -56,30 +59,30 @@ tobtn.addEventListener("click", find);
 
 function convert() {
   document.getElementById("fileName").textContent = input.files[0].name;
-  if (setting == 0) {
-    file = input.files[0];
-    fr = new FileReader();
-    var containsAudio = file.type.indexOf("audio");
-    var containsVideo = file.type.indexOf("video");
-    var containsImage = file.type.indexOf("image");
-    var containsText = file.type.indexOf("text");
-    if (containsAudio == 0) { //if audio
-      fr.onload = createAudio;
-      fileType = "audio";
-    } else if (containsVideo == 0) { //if video
-      fr.onload = createAudio;
-      fileType = "audio";
-    } else if (containsImage == 0) { // if image
-      fr.onload = createImage;
-      fileType = "image";
-    } else if (containsText == 0) { // if txt
-      fr.onload = createText; // onload fires after reading is complete
-      fileType = "text";
-    } else {
-      alert("File not supported.");
-    }
-    fr.readAsDataURL(file);
+  setting = 0;
+  file = input.files[0];
+  fr = new FileReader();
+  var containsAudio = file.type.indexOf("audio");
+  var containsVideo = file.type.indexOf("video");
+  var containsImage = file.type.indexOf("image");
+  var containsText = file.type.indexOf("text");
+  if (containsAudio == 0) { //if audio
+    fr.onload = createAudio;
+    fileType = "audio";
+  } else if (containsVideo == 0) { //if video
+    fr.onload = createAudio;
+    fileType = "audio";
+  } else if (containsImage == 0) { // if image
+    fr.onload = createImage;
+    fileType = "image";
+  } else if (containsText == 0) { // if txt
+    fr.onload = createText; // onload fires after reading is complete
+    fileType = "text";
+  } else {
+    alert("File not supported.");
+    fr.onload = createDefault;
   }
+  fr.readAsDataURL(file);
 }
 
 function find() {
@@ -100,17 +103,17 @@ function find() {
 
 function clearDisplay() {
 	if (created == "audio") {
-    	var el = document.getElementsByTagName("audio")[0];
-    	document.getElementById("cnvContainer").removeChild(el);
-  	} else if (created == "text") {
-    	var el = document.getElementsByTagName("textarea")[0];
-    	document.getElementById("cnvContainer").removeChild(el);
-  	} else {
-  		ctx.clearRect(0,0,canvas.width,canvas.height); //clean up canvas
-  		canvas.width = 0;
-  		canvas.height = 0;
-  	}
-    created = "";
+  	var el = document.getElementsByTagName("audio")[0];
+    document.getElementById("cnvContainer").removeChild(el);
+  } else if (created == "text") {
+  	var el = document.getElementsByTagName("textarea")[0];
+  	document.getElementById("cnvContainer").removeChild(el);
+  } else {
+  	ctx.clearRect(0,0,canvas.width,canvas.height); //clean up canvas
+  	canvas.width = 0;
+  	canvas.height = 0;
+  }
+   created = "";
 }
 
 function createImage() {
@@ -188,34 +191,52 @@ function createText() {
   created = "text";
 }
 
+function createDefault() {
+  clearDisplay();
+  out.value = window.btoa(fr.result);
+}
+
 function downloadCanvas(link) {
   var ext;
-  if (b64Type == undefined) { //needs to select download format
-    alert("Select a media type.");
+  file_type = document.getElementById("file_type");
+  if (file_type.value.indexOf(".") == 0) {
+    ext = file_type.value;
+  } else {
+    ext = "." + file_type.value;
   }
-  if (b64Type == "image/png") { ext = "png"}
-  if (b64Type == "image/jpeg") { ext = "jpg"}
-  if (b64Type == "image/bmp") { ext = "bmp"}
-  if (b64Type == "image/svg+xml") { ext = "svg"}
-  if (b64Type == "image/gif") { ext = "gif"}
-  if (b64Type == "image/gif") { ext = "tiff"}
-  if (b64Type == "image/x-icon") { ext = "ico"}
-  if (b64Type == "audio/mpeg") { ext = "mp3"}
-  if (b64Type == "video/ogg") { ext = "ogg"}
-  if (b64Type == "text/plain") { ext = "txt"}
-  if (b64Type == "text/css") { ext = "css"}
-  if (b64Type == "text/html") { ext = "html"}
-  if (b64Type == "text/javascript") { ext = "js"}
-  if (ext !== undefined) {
-    link.download = "converted_file." + ext;
+
+  if (file_type.value == undefined || file_type.value == "") {
+    if (b64Type == "image/png") { ext = ".png"}
+    if (b64Type == "image/jpeg") { ext = ".jpg"}
+    if (b64Type == "image/bmp") { ext = ".bmp"}
+    if (b64Type == "image/svg+xml") { ext = ".svg"}
+    if (b64Type == "image/gif") { ext = ".gif"}
+    if (b64Type == "image/tiff") { ext = ".tiff"}
+    if (b64Type == "image/x-icon") { ext = ".ico"}
+    if (b64Type == "audio/mpeg") { ext = ".mp3"}
+    if (b64Type == "audio/wav") { ext = ".wav"}
+    if (b64Type == "video/ogg") { ext = ".ogg"}
+    if (b64Type == "text/plain") { ext = ".txt"}
+    if (b64Type == "text/css") { ext = ".css"}
+    if (b64Type == "text/html") { ext = ".html"}
+    if (b64Type == "text/javascript") { ext = ".js"}
+  }
+console.log(ext)
+  if (ext == undefined || ext == "") { //needs to select download format
+    alert("Select a file type.");
+  } else {
+    link.download = "converted_file" + ext;
     link.href = out.value;
   }
 }
 
 (function () {
   chrome.storage.local.get(['key'], function(result) {
-    if (result.key !== undefined)
+    if (result.key !== undefined) {
       out.value = result.key;
+      setting = 1;
+      find();
+    }
   });
 
 }());

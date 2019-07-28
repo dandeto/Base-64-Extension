@@ -1,22 +1,23 @@
-var out = document.getElementById("output");
-var copybtn = document.getElementById("copy");
-var to64 = document.getElementById("to");
-var from64 = document.getElementById("from");
-var tobtn = document.getElementById("convert");
-var input = document.getElementById("file");
-var canvas = document.getElementById("cnv");
-var download = document.getElementById("download");
-var clear = document.getElementById("clear");
-var selector = document.getElementById("fileTypeSelector");
-var label = document.getElementById("label");
-var fileName = document.getElementById("fileName");
-var file_type = document.getElementById("file_type");
-var state, string,
-img, aud, fr, file, type, b64Type, created, fileType;
+var out = document.getElementById("output"), //all global because its UI
+    copybtn = document.getElementById("copy"),
+    to64 = document.getElementById("to"),
+    from64 = document.getElementById("from"),
+    tobtn = document.getElementById("convert"),
+    input = document.getElementById("file"),
+    canvas = document.getElementById("cnv"),
+    download = document.getElementById("download"),
+    clear = document.getElementById("clear"),
+    selector = document.getElementById("fileTypeSelector"),
+    label = document.getElementById("label"),
+    fileName = document.getElementById("fileName"),
+    file_type = document.getElementById("file_type"),
+    state, string, img, aud, fr, file, type, b64Type, created, fileType;
 var setting = 0;
 var ctx = canvas.getContext("2d");
 
-to.addEventListener('click', function(event) {
+to.style.borderColor = "red";
+
+to.addEventListener('click', () => {
   setting = 0;
   tobtn.style.display = "none";
   copybtn.style.display = "inline";
@@ -26,9 +27,10 @@ to.addEventListener('click', function(event) {
   label.style.display = "inline-block";
   fileName.style.display = "inline-block";
   file_type.style.display = "none";
-
+  to.style.borderColor = "red";
+  from64.style.borderColor = "";
 });
-from64.addEventListener('click', function(event) {
+from64.addEventListener('click', () => {
   setting = 1;
   tobtn.style.display = "inline";
   copybtn.style.display = "none";
@@ -38,15 +40,17 @@ from64.addEventListener('click', function(event) {
   label.style.display = "none";
   fileName.style.display = "none";
   file_type.style.display = "inline-block";
+  from64.style.borderColor = "red";
+  to.style.borderColor = "";
 });
 
-clear.addEventListener('click', function(event) {
+clear.addEventListener('click', () => {
   out.value = null;
 });
-selector.addEventListener('change', function(event) {
+selector.addEventListener('change', () => {
   b64Type = this.value;
 });
-copybtn.addEventListener('click', function(event) {
+copybtn.addEventListener('click', () => {
   out.select();
   document.execCommand('copy');
 });
@@ -57,25 +61,30 @@ download.addEventListener('click', function() {
 input.addEventListener("change", convert);
 tobtn.addEventListener("click", find);
 
+document.getElementById("clear-storage").addEventListener('click', clearStorage);
+var string_input = document.getElementById("string-input");
+string_input.addEventListener('keyup', e => convertText(e)); //when typing
+string_input.addEventListener('change', e => convertText(e)); //for pasting in text
+
+
+function convertText(e) {
+  if (!setting) out.value = window.btoa(e.target.value);
+  else out.value = window.atob(e.target.value);
+  store(out.value);
+}
+
 function convert() {
   document.getElementById("fileName").textContent = input.files[0].name;
   setting = 0;
   file = input.files[0];
   fr = new FileReader();
-  var containsAudio = file.type.indexOf("audio");
-  var containsVideo = file.type.indexOf("video");
-  var containsImage = file.type.indexOf("image");
-  var containsText = file.type.indexOf("text");
-  if (containsAudio == 0) { //if audio
+  if (file.type.indexOf("audio") == 0 || file.type.indexOf("video") == 0) { //if audio or video
     fr.onload = createAudio;
     fileType = "audio";
-  } else if (containsVideo == 0) { //if video
-    fr.onload = createAudio;
-    fileType = "audio";
-  } else if (containsImage == 0) { // if image
+  } else if (file.type.indexOf("image") == 0) { // if image
     fr.onload = createImage;
     fileType = "image";
-  } else if (containsText == 0) { // if txt
+  } else if (file.type.indexOf("text") == 0) { // if txt
     fr.onload = createText; // onload fires after reading is complete
     fileType = "text";
   } else {
@@ -191,7 +200,7 @@ function createText() {
   created = "text";
 }
 
-function createDefault() {
+function createDefault() { //not a supported type. Do the conversion, but leave off header.
   clearDisplay();
   out.value = window.btoa(fr.result);
 }
@@ -221,7 +230,6 @@ function downloadCanvas(link) {
     if (b64Type == "text/html") { ext = ".html"}
     if (b64Type == "text/javascript") { ext = ".js"}
   }
-console.log(ext)
   if (ext == undefined || ext == "") { //needs to select download format
     alert("Select a file type.");
   } else {
@@ -236,11 +244,15 @@ console.log(ext)
       out.value = result.key;
       setting = 1;
       find();
+      setting = 0;
     }
   });
-
 }());
 
 function store(data) {
   chrome.storage.local.set({"key": data});
+}
+
+function clearStorage() {
+  chrome.storage.local.clear();
 }

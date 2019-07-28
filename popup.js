@@ -74,6 +74,7 @@ function convertText(e) {
 }
 
 function convert() {
+  clearDisplay();
   document.getElementById("fileName").textContent = input.files[0].name;
   setting = 0;
   file = input.files[0];
@@ -95,15 +96,14 @@ function convert() {
 }
 
 function find() {
+  clearDisplay();
   if (out.value.indexOf("text/") > -1) {//all text
     createText();
     fileType = "text";
-  }
-  if (out.value.indexOf("image/") > -1) { //all image types
+  } else if (out.value.indexOf("image/") > -1) { //all image types
     createImage();
     fileType = "image";
-  }
-  if (out.value.indexOf("audio/") > -1 ||
+  } else if (out.value.indexOf("audio/") > -1 ||
       out.value.indexOf("video/ogg") > -1) { //all audio
     createAudio();
     fileType = "audio";
@@ -126,7 +126,6 @@ function clearDisplay() {
 }
 
 function createImage() {
-  clearDisplay();
   img = new Image();
   img.onload = imageLoaded; //create canvas and put img on it
   if (setting == 0) {
@@ -152,7 +151,6 @@ function imageLoaded() {
 }
 
 function createAudio() {
-  clearDisplay();
   aud = document.createElement("audio");
   if (setting == 0) {
     aud.setAttribute("src",fr.result); //make uploaded file the audio
@@ -178,7 +176,6 @@ function createAudio() {
 }
 
 function createText() {
-	clearDisplay();
 	var txt = document.createElement("textarea");
   txt.setAttribute("rows", "5");
 	function detect() {
@@ -201,13 +198,12 @@ function createText() {
 }
 
 function createDefault() { //not a supported type. Do the conversion, but leave off header.
-  clearDisplay();
   out.value = window.btoa(fr.result);
 }
 
 function downloadCanvas(link) {
   var ext;
-  file_type = document.getElementById("file_type");
+  file_type = document.getElementById("file_type"); //update the current value
   if (file_type.value.indexOf(".") == 0) {
     ext = file_type.value;
   } else {
@@ -232,22 +228,11 @@ function downloadCanvas(link) {
   }
   if (ext == undefined || ext == "") { //needs to select download format
     alert("Select a file type.");
-  } else {
+  } else if (!(out.value == undefined || out.value == "")) {
     link.download = "converted_file" + ext;
     link.href = out.value;
   }
 }
-
-(function () {
-  chrome.storage.local.get(['key'], function(result) {
-    if (result.key !== undefined) {
-      out.value = result.key;
-      setting = 1;
-      find();
-      setting = 0;
-    }
-  });
-}());
 
 function store(data) {
   chrome.storage.local.set({"key": data});
@@ -256,3 +241,29 @@ function store(data) {
 function clearStorage() {
   chrome.storage.local.clear();
 }
+
+(function () {
+  chrome.storage.local.get(['key'], function(result) {
+    if (result.key !== undefined) {
+      function load() {
+        out.value = result.key;
+        setting = 1;
+        find();
+        setting = 0;
+      }
+      
+      function confirmBox(callback) {
+        var confirmDialogue = document.querySelector(".confirm");
+        confirmDialogue.style.display = "block";
+        confirmDialogue.children[1].addEventListener('click', () => {
+          confirmDialogue.style.display = "none";
+          callback();
+        });
+        confirmDialogue.children[2].addEventListener('click', () => { confirmDialogue.style.display = "none" });
+      }
+      //ask to load what's in ls
+      if (result.key.length < 500000) load(); //smallish file, don't worry about it.
+      else confirmBox(load); //will take awhile to load
+    }
+  });
+}());

@@ -23,6 +23,22 @@ h1 {
   src: url(fonts/fixedsys.ttf);
 }
 
+.confirm {
+  font-family: bitter;
+  font-size: 125%;
+  display: none;
+  position: absolute;
+  border: 1px solid red;
+  box-shadow: 0px 0px 200px 5px red;
+  background-color: #000000;
+  color: #a9ff00;
+  top: 35%; bottom: 35%;
+  left: 30%; right: 30%;
+  text-align: center;
+  margin: auto;
+  padding: 2%;
+}
+
 .settings {
   background-color: black;
   padding: 1%;
@@ -155,7 +171,7 @@ a {
 
 .title {
   display: inline;
-  margin-left: 37%;
+  margin-left: 25%;
 }
 
 #label {
@@ -197,5 +213,9 @@ textarea, #string-input {
 }
 
 textarea:focus{
+  outline: none;
+}
+
+input:focus{
   outline: none;
 }

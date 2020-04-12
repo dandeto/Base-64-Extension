@@ -42,7 +42,7 @@ This extension supports converting the following file types (several examples li
 	- js
 	- py
 	- cpp
-	- java
+	- etc.
 
 ### Download
 This extension is updated and availible on the [Chrome Store](https://chrome.google.com/webstore/detail/base64-encoderdecoder/afdannbjainhcddbjjlhamdgnojibeoi).

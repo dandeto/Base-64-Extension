@@ -33,31 +33,37 @@
     <div style="text-align: center;"><input type="text" id="string-input" placeholder="input text" /></div>
     
     <br />
-    <input style="display:none;" id="file" type="file"/>
-    <label id="label" class="btn" for="file">Select a File</label><span id="fileName">[Filename]</span>
-    <a class="btn" id="download" style="display:none;">Download</a>
-    <input class="btn" type="button" value="Copy" id="copy">
-    <input class="btn" type="button" value="Convert" id="convert" style="display:none;">
-    <input class="btn" type="button" value="Clear" id="clear" style="display:none;">
-    <select class="btn" id="fileTypeSelector" style="display:none;">
-    	<option>file type</option>
-    	<option value="image/png">png</option>
-    	<option value="image/jpeg">jpeg</option>
-    	<option value="image/svg+xml">svg</option>
-    	<option value="image/bmp">bmp</option>
-    	<option value="image/gif">gif</option>
-        <option value="image/x-icon">ico</option>
-        <option value="image/tiff">tiff</option>
-        <option value="audio/mpeg">mpeg</option>
-        <option value="audio/wav">wav</option>
-        <option value="video/ogg">ogg</option>
-        <option value="text/plain">txt</option>
-        <option value="text/xml">xml</option>
-        <option value="text/css">css</option>
-        <option value="text/html">html</option>
-        <option value="text/plain">js</option>
-    </select>
-    <input type="text" placeholder="input file type (ex: .png)" id="file_type" class="btn" style="display:none;">
+    <div id="to-container">
+        <input style="display:none;" id="file" type="file"/>
+        <label id="label" class="btn" for="file">Select a File</label><span id="fileName">[Filename]</span>
+        <input class="btn" type="button" value="Copy" id="copy">
+    </div>
+
+    <div id="from-container" style="display:none;">
+        <a class="btn" id="download">Download</a>
+        <input class="btn" type="button" value="Convert" id="convert">
+        <input class="btn" type="button" value="Clear" id="clear">
+        <select class="btn dropdown" id="fileTypeSelector">
+        	<option>file type</option>
+        	<option value="image/png">png</option>
+        	<option value="image/jpeg">jpeg</option>
+        	<option value="image/svg+xml">svg</option>
+        	<option value="image/bmp">bmp</option>
+        	<option value="image/gif">gif</option>
+            <option value="image/x-icon">ico</option>
+            <option value="image/tiff">tiff</option>
+            <option value="audio/mpeg">mpeg</option>
+            <option value="audio/wav">wav</option>
+            <option value="video/ogg">ogg</option>
+            <option value="text/plain">txt</option>
+            <option value="text/xml">xml</option>
+            <option value="text/css">css</option>
+            <option value="text/html">html</option>
+            <option value="text/javascript">js</option>
+        </select>
+        <input type="text" placeholder="input file type (ex: .png)" id="file_type" class="btn">
+    </div>
+
     <div class="cnvContainer">
         <textarea id="output" rows="10" spellcheck="false"></textarea>
     </div>

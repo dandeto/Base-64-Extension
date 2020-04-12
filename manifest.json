@@ -4,8 +4,8 @@
   "name": "Base64 Encoder/Decoder",
   "short_name": "Base64",
   "description": "Encodes and decodes media to and from Base64.",
-  "version": "1.2.1",
-  "offline_enabled": "true",
+  "version": "1.2.2",
+  "offline_enabled": true,
   "permissions": [
     "storage"
   ],

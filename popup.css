@@ -1,13 +1,3 @@
-body {
-  background-color: #353535;
-  width: 700px;
-}
-
-h1 {
-  font-family: Bitter;
-  color: #a9ff00;
-}
-
 @font-face {
   font-family: Bitter;
   src: url(fonts/Bitter-Regular.ttf);
@@ -21,6 +11,16 @@ h1 {
 @font-face {
   font-family: Fixedsys;
   src: url(fonts/fixedsys.ttf);
+}
+
+body {
+  background-color: #333;
+  width: 700px;
+}
+
+h1 {
+  font-family: Bitter;
+  color: #a9ff00;
 }
 
 .confirm {
@@ -40,7 +40,6 @@ h1 {
 }
 
 .settings {
-  background-color: black;
   padding: 1%;
 }
 
@@ -73,18 +72,14 @@ a {
   border: 2px inset #cccccc;
   border-radius: 10px;
   padding: 1%;
-  background-color: #303030;
+  background-color: #333;
   cursor: pointer;
+  transition: color .4s;
 }
 
 .btn:hover {
+  transition: color .4s;
   color: #00a9ff;
-  font-family: Roboto;
-  font-size: 100%;
-  border: 2px inset #cccccc;
-  border-radius: 10px;
-  padding: 1%;
-  background-color: #505050;
   cursor: pointer;
 }
 
@@ -133,12 +128,13 @@ a {
   background-color: #303030;
   border-bottom-right-radius: 10px;
   border-top-left-radius: 10px;
-  -webkit-transition: background-color 1s;
-  transition: background-color 1s;
+  -webkit-transition: color 1s, background-color 1s;
+  transition: color 1s, background-color 1s;
 }
 
 .fancy:hover {
   background-color: #00a9ff;
+  color:black;
 }
 
 .fancy:active {
@@ -201,10 +197,6 @@ textarea, #string-input {
   color: #a9ff00;
 }
 
-textarea:focus{
-  outline: none;
-}
-
-input:focus{
+textarea:focus, input:focus {
   outline: none;
 }

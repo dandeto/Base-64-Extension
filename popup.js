@@ -16,13 +16,13 @@ var out           = document.getElementById("output"), //all global because its 
     setting = 0,
     ctx = canvas.getContext("2d");
 
-to.style.borderColor = "red";
+to.style.borderColor = "#00a9ff";
 
 to.addEventListener('click', () => {
   setting = 0;
   document.querySelector("#to-container").style.display   = "block";
   document.querySelector("#from-container").style.display = "none";
-  to.style.borderColor     = "red";
+  to.style.borderColor     = "#00a9ff";
   from64.style.borderColor = "";
 
 });
@@ -30,7 +30,7 @@ from64.addEventListener('click', () => {
   setting = 1;
   document.querySelector("#to-container").style.display   = "none";
   document.querySelector("#from-container").style.display = "block";
-  from64.style.borderColor = "red";
+  from64.style.borderColor = "#00a9ff";
   to.style.borderColor     = "";
 });
 

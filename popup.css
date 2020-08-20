@@ -13,6 +13,16 @@
   src: url(fonts/fixedsys.ttf);
 }
 
+::-webkit-scrollbar {
+    width: 5px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00a9ff;
+    -webkit-border-radius: 1ex;
+}
+
 body {
   background-color: #333;
   width: 700px;

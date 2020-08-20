@@ -71,7 +71,7 @@ function find() {
   else if (out.value.indexOf("image/") > -1)      createImage();
   else if (out.value.indexOf("audio/") > -1 ||
            out.value.indexOf("video/ogg") > -1)   createAudio();
-  else                                            alert("No supported base64 header.");
+  else if(out.value.length > 0)                   alert("No supported base64 header.");
 }
 
 function clearDisplay() {
